@@ -85,7 +85,24 @@ h1 {
 .macro-cell.won-d .macro-overlay { color: #94a3b8; font-size: 3rem; }
 
 .micro-cell { width: 45px; height: 45px; background: var(--cell-bg); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.8rem; cursor: pointer; transition: all 0.2s; position: relative; border: 1px solid rgba(255,255,255,0.05); }
-@media (max-width: 500px) { .micro-cell { width: 32px; height: 32px; font-size: 1.3rem; } .macro-board { gap: 6px; padding: 10px; } .macro-overlay { font-size: 3.5rem; } h1 { font-size: 2rem; } }
+@media (max-width: 600px) {
+    .micro-cell { width: 35px; height: 35px; font-size: 1.4rem; } 
+    .macro-board { gap: 6px; padding: 10px; } 
+    .macro-overlay { font-size: 3.5rem; } 
+    h1 { font-size: 2.2rem; margin-bottom: 1rem; }
+    .status { font-size: 1rem; }
+}
+
+@media (max-width: 400px) { 
+    .micro-cell { width: 28px; height: 28px; font-size: 1.1rem; border-radius: 4px; } 
+    .macro-board { gap: 4px; padding: 8px; border-radius: 12px; } 
+    .macro-cell { gap: 2px; padding: 4px; border-radius: 8px; border-width: 1px; }
+    .macro-overlay { font-size: 2.5rem; } 
+    h1 { font-size: 1.5rem; margin-bottom: 1rem; } 
+    body { padding: 10px; overflow-y: auto; }
+    .btn-main { padding: 12px 20px; font-size: 1rem; }
+    .modal { padding: 1.5rem; }
+}
 
 .micro-cell:hover:not(.played):not(.disabled) { background: var(--cell-hover); transform: translateY(-2px) scale(1.05); z-index: 2; }
 .micro-cell.played-x { color: var(--x-color); text-shadow: 0 0 8px var(--x-color); animation: bounceIn 0.3s; }
