@@ -1,0 +1,89 @@
+/* ═══════════════════════════════════════════════
+   CONNECT 4 SPECIFIC STYLES
+   ═══════════════════════════════════════════════ */
+
+:root {
+    --c4-p1: #ef4444; /* Rot */
+    --c4-p2: #eab308; /* Gelb */
+    --c4-board: #1e3a8a; /* Blaues Board */
+}
+
+.ambient-glow.amber {
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+    top: -10vh; left: 10vw;
+}
+
+.c4-board-container {
+    padding: 10px;
+    background: linear-gradient(180deg, rgba(30,58,138,0.8), rgba(30,58,138,1));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg), inset 0 10px 20px rgba(255,255,255,0.1);
+    border: 3px solid #3b82f6;
+    margin-top: 10px;
+}
+
+.c4-board {
+    display: flex;
+    gap: 8px;
+    background: transparent;
+}
+
+.c4-column {
+    display: flex;
+    flex-direction: column-reverse; /* Bottom to top */
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: var(--radius-md);
+    transition: background 0.2s;
+}
+
+.c4-column:hover:not(.disabled) {
+    background: rgba(255,255,255,0.1);
+}
+
+.c4-cell {
+    width: clamp(35px, 8vw, 60px);
+    height: clamp(35px, 8vw, 60px);
+    background: var(--bg-primary); /* Hole */
+    border-radius: 50%;
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.c4-chip {
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    animation: dropIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.c4-chip.p1 {
+    background: radial-gradient(circle at 30% 30%, #fca5a5, var(--c4-p1), #991b1b);
+}
+
+.c4-chip.p2 {
+    background: radial-gradient(circle at 30% 30%, #fef08a, var(--c4-p2), #854d0e);
+}
+
+.c4-cell.win-highlight .c4-chip {
+    animation: pulseGlow 1s infinite alternate;
+}
+
+@keyframes dropIn {
+    0% { transform: translateY(-400px); }
+    60% { transform: translateY(20px); }
+    80% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+    from { filter: brightness(1) drop-shadow(0 0 5px white); }
+    to { filter: brightness(1.3) drop-shadow(0 0 20px white); }
+}
+
+.p1-color { color: var(--c4-p1) !important; text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+.p2-color { color: var(--c4-p2) !important; text-shadow: 0 0 10px rgba(234, 179, 8, 0.5); }

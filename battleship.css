@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════
+   BATTLESHIP SPECIFIC STYLES
+   ═══════════════════════════════════════════════ */
+
+.ambient-glow.blue {
+    background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+    bottom: -15vh; left: 20vw;
+}
+
+.setup-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.ship-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.ship-btn {
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-subtle);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.ship-btn.active {
+    border-color: var(--cyan);
+    background: rgba(6,182,212,0.15);
+    box-shadow: 0 0 10px rgba(6,182,212,0.3);
+}
+
+.ship-btn.placed {
+    border-color: var(--green);
+    color: var(--green);
+    opacity: 0.6;
+    cursor: default;
+}
+
+.setup-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.bs-dual-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.bs-grid-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bs-grid-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.bs-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 2px;
+    padding: 8px;
+    background: rgba(30, 58, 138, 0.4);
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(59,130,246,0.3);
+    box-shadow: var(--shadow-lg);
+}
+
+.bs-cell {
+    width: clamp(24px, 5.5vw, 36px);
+    height: clamp(24px, 5.5vw, 36px);
+    background: rgba(30, 64, 175, 0.3);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(0.7rem, 2vw, 1rem);
+}
+
+.bs-cell:hover:not(.disabled) {
+    background: rgba(59,130,246,0.4);
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+.bs-cell.ship {
+    background: rgba(148,163,184,0.5);
+    border: 1px solid rgba(148,163,184,0.6);
+}
+
+.bs-cell.hit {
+    background: rgba(239,68,68,0.6) !important;
+    animation: hitExplosion 0.4s ease-out;
+}
+.bs-cell.hit::after {
+    content: '💥';
+    font-size: clamp(0.7rem, 2vw, 1rem);
+}
+
+.bs-cell.miss {
+    background: rgba(100,116,139,0.3) !important;
+}
+.bs-cell.miss::after {
+    content: '•';
+    color: rgba(148,163,184,0.6);
+    font-size: 1.5rem;
+}
+
+.bs-cell.sunk {
+    background: rgba(239,68,68,0.8) !important;
+    box-shadow: 0 0 8px rgba(239,68,68,0.5);
+}
+.bs-cell.sunk::after {
+    content: '🔥';
+    font-size: clamp(0.7rem, 2vw, 1rem);
+}
+
+.bs-cell.preview {
+    background: rgba(6,182,212,0.3);
+    border: 1px dashed var(--cyan);
+}
+
+.bs-cell.preview-invalid {
+    background: rgba(239,68,68,0.2);
+    border: 1px dashed var(--red);
+}
+
+.bs-cell.disabled {
+    cursor: default;
+}
+
+@keyframes hitExplosion {
+    0% { transform: scale(0.5); background: rgba(255,200,0,0.8); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.enemy-grid .bs-cell:hover:not(.hit):not(.miss):not(.disabled) {
+    background: rgba(239,68,68,0.2);
+    box-shadow: 0 0 10px rgba(239,68,68,0.3);
+}
+
+@media (max-width: 700px) {
+    .bs-dual-grid { gap: 15px; }
+    .bs-grid { gap: 1px; padding: 5px; }
+}

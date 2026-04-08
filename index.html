@@ -3,89 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Tic-Tac-Toe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>GameVerse Arcade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-    <div class="ambient"></div><div class="ambient pink"></div>
+    <canvas id="particle-canvas"></canvas>
+    
+    <div class="ambient-glow cyan"></div>
+    <div class="ambient-glow pink"></div>
+    <div class="ambient-glow purple"></div>
 
-    <h1>Ultimate Tic-Tac-Toe</h1>
+    <div class="hub-container">
+        <h1 class="page-title">GameVerse Arcade</h1>
+        <p class="subtitle">Wähle dein Spiel. Zerstöre deine Freunde.</p>
 
-    <!-- MENU VIEW -->
-    <div id="view-menu" class="view active">
-        <button class="btn-main" onclick="startLocalGame()">Lokal Spielen</button>
-        <button class="btn-main" onclick="startBotGame()">Gegen Bot spielen</button>
-        <button class="btn-main" onclick="showOnlineLobby()">Online Multiplayer</button>
-    </div>
+        <div class="game-grid">
+            <!-- Normal Tic-Tac-Toe -->
+            <a href="tictactoe.html" class="game-card" style="--card-color: #06b6d4;">
+                <div class="card-content">
+                    <div class="icon">❌⭕</div>
+                    <h2>Tic-Tac-Toe</h2>
+                    <p>Der absolute Klassiker. 3x3 Raster.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
 
-    <!-- ONLINE LOBBY VIEW -->
-    <div id="view-online" class="view">
-        <button class="btn-back" onclick="showView('view-menu')">← Zurück zum Menü</button>
-        <div class="server-header">
-            <h2>Verfügbare Server</h2>
-            <button class="btn-action" onclick="showCreateServerModal()">+ Erstellen</button>
-        </div>
-        <div class="server-list" id="server-list-container">
-            <div class="empty-state">Lade Server...</div>
-        </div>
-    </div>
+            <!-- Super Tic-Tac-Toe -->
+            <a href="super-tictactoe.html" class="game-card" style="--card-color: #a855f7;">
+                <div class="card-content">
+                    <div class="icon">🌌</div>
+                    <h2>Super TTT</h2>
+                    <p>Mind-bending: 9 verschachtelte Boards.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
 
-    <!-- GAME VIEW -->
-    <div id="view-game" class="view">
-        <button class="btn-back" id="btn-leave-game" onclick="leaveGame()">← Zurück aufgeben</button>
-        <div class="status" id="status">
-            <span id="player-indicator">X</span> ist am Zug <span id="online-status" style="font-size: 0.9rem; color:#94a3b8; font-weight: normal; margin-left: 10px;"></span>
-        </div>
-        <div class="macro-board" id="board"></div>
-        <p style="margin-top: 15px; color:#64748b; font-size:0.9rem; text-align:center;">
-            Das gespielte kleine Feld bestimmt das nächste große Feld.
-        </p>
-    </div>
+            <!-- Vier Gewinnt -->
+            <a href="connect4.html" class="game-card" style="--card-color: #f59e0b;">
+                <div class="card-content">
+                    <div class="icon">🔴🟡</div>
+                    <h2>Vier Gewinnt</h2>
+                    <p>7x6 Raster. Verbinde vier, um zu gewinnen.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
 
-    <!-- Modals -->
-    <div class="modal-overlay" id="modal-create-server">
-        <div class="modal">
-            <h2>Server Erstellen</h2>
-            <div class="input-group">
-                <label>Server Name</label>
-                <input type="text" id="input-server-name" placeholder="Mein Epic Server">
-            </div>
-            <div class="input-group">
-                <label>Passwort (optional)</label>
-                <input type="password" id="input-server-pw" placeholder="***">
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-top:20px;">
-                <button class="btn-action" style="background:transparent; border:1px solid #64748b;" onclick="hideModals()">Abbrechen</button>
-                <button class="btn-action" onclick="createServer()">Erstellen</button>
-            </div>
-        </div>
-    </div>
+            <!-- Schiffe Versenken -->
+            <a href="battleship.html" class="game-card" style="--card-color: #3b82f6;">
+                <div class="card-content">
+                    <div class="icon">🚢💥</div>
+                    <h2>Schiffe Versenken</h2>
+                    <p>Finde und zerstöre die gegnerische Flotte.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
 
-    <div class="modal-overlay" id="modal-join-server">
-        <div class="modal">
-            <h2>Server Beitreten</h2>
-            <p id="join-server-name" style="margin-bottom:15px; color:#94a3b8;"></p>
-            <div class="input-group" id="join-pw-group">
-                <label>Passwort</label>
-                <input type="password" id="input-join-pw" placeholder="Passwort eingeben">
-            </div>
-            <p id="join-error" style="color:#ef4444; font-size:0.9rem; display:none; margin-bottom:10px;">Falsches Passwort!</p>
-            <div style="display:flex; justify-content:space-between; margin-top:20px;">
-                <button class="btn-action" style="background:transparent; border:1px solid #64748b;" onclick="hideModals()">Abbrechen</button>
-                <button class="btn-action" onclick="joinServerSubmit()">Beitreten</button>
-            </div>
-        </div>
-    </div>
+            <!-- Schach -->
+            <a href="chess.html" class="game-card" style="--card-color: #e2e8f0;">
+                <div class="card-content">
+                    <div class="icon">♚♙</div>
+                    <h2>Schach</h2>
+                    <p>Das Spiel der Könige. Nutze deinen Verstand.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
 
-    <div class="modal-overlay" id="modal-endgame">
-        <div class="modal">
-            <h2 id="winner-text" style="font-size:2.5rem; background: linear-gradient(to right, var(--x-color), var(--o-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Spieler X gewinnt!</h2>
-            <p style="color:#94a3b8; margin-bottom: 20px;">Gut gespielt!</p>
-            <button class="btn-action" onclick="showView('view-menu'); hideModals();">Zum Menü</button>
+            <!-- Ludo -->
+            <a href="ludo.html" class="game-card" style="--card-color: #22c55e;">
+                <div class="card-content">
+                    <div class="icon">🎲🏃‍♂️</div>
+                    <h2>Ludo</h2>
+                    <p>Mensch ärgere dich nicht! Bring alle ins Ziel.</p>
+                </div>
+                <div class="card-glow"></div>
+            </a>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="hub.js"></script>
 </body>
 </html>

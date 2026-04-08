@@ -1,29 +1,148 @@
-# Ultimate Tic-Tac-Toe
+# 🎮 GameVerse Arcade
 
-🎮 **Play it live:** [https://supertictactoe-c1r.pages.dev/](https://supertictactoe-c1r.pages.dev/)
+<div align="center">
 
-Welcome to **Ultimate Tic-Tac-Toe** – a modern, dark-themed, and highly interactive spin on the classic game!
+**Ein vollständiges Browser-Spieleportal mit 6 Spielen, jeweils mit Bot, Lokal & Online-Multiplayer.**
 
-## 🧠 What is Ultimate Tic-Tac-Toe?
-In Ultimate Tic-Tac-Toe, each cell of a standard 3x3 grid contains another smaller 3x3 Tic-Tac-Toe board. The catch? The location of your move in a small board dictates which large grid cell your opponent must play in next! It requires deep strategy and thinking several moves ahead to win the overarching macro-board.
+[![Deployed on Cloudflare Pages](https://img.shields.io/badge/Deployed%20on-Cloudflare%20Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com/)
+[![Powered by D1](https://img.shields.io/badge/Database-Cloudflare%20D1-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/d1/)
+[![Vanilla JS](https://img.shields.io/badge/Frontend-Vanilla%20JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-## ✨ Features
-- 🤖 **Play against a Bot:** Test your skills against an integrated AI that actively blocks and strategies against you.
-- 👥 **Local Multiplayer:** Play with a friend on the same device.
-- 🌐 **Real-time Online Multiplayer:** Create a lobby with a password, and play seamlessly across devices over the internet.
-- 🎨 **Modern Interface:** Handcrafted with stunning glassmorphism, fluid animations, and a premium neon dark-mode UI.
-- 📱 **Fully Mobile Optimized:** Dynamically scales using advanced CSS adjustments to provide a flawless, app-like experience on any smartphone or tablet.
-
-## 🛠 Technology Stack
-- **Frontend:** Pure HTML5, CSS3, and Vanilla JavaScript. Absolutely no heavy frameworks.
-- **Backend/API:** Cloudflare Pages Functions (Serverless).
-- **Database:** Cloudflare D1 (SQLite).
-
-## 🚀 Setup & Deployment
-This game is designed to be hosted out-of-the-box on Cloudflare Pages:
-1. Connect your GitHub repository to Cloudflare Pages.
-2. Bind a Cloudflare D1 Database to the Pages project with the specific variable name `DB` in your bindings.
-3. Cloudflare automatically hosts the static frontend files and seamlessly deploys the backend server located in the `functions/api/` directory.
+</div>
 
 ---
-*Created for strategy game lovers.*
+
+## 🕹️ Spiele
+
+| # | Spiel | 🤖 Bot | 👥 Lokal | 🌐 Online |
+|---|---|:---:|:---:|:---:|
+| 1 | **Tic-Tac-Toe** — Klassisches 3×3 | Minimax (unschlagbar) | ✅ | ✅ |
+| 2 | **Super Tic-Tac-Toe** — 9 verschachtelte Boards | Strategischer Bot | ✅ | ✅ |
+| 3 | **Vier Gewinnt** — 7×6 Raster | Alpha-Beta Minimax | ✅ | ✅ |
+| 4 | **Schiffe Versenken** — 10×10 Flotten | Hunt/Target AI | ✅ | ✅ |
+| 5 | **Schach** — Vollständig mit allen Regeln | Minimax Depth-3 | ✅ | ✅ |
+| 6 | **Ludo** — Mensch Ärgere Dich Nicht | Strategischer Bot | ✅ | ✅ |
+
+---
+
+## ✨ Features
+
+- 🎨 **Dark-Mode Design** mit Glassmorphism, Neon-Akzenten und Animationen
+- 🃏 **Spielerisches Hub-Menü** mit 3D-Karten-Tilt-Effekt und schwebenden Partikeln
+- 🤖 **Intelligente Bots** — von einfachem Minimax bis zu Alpha-Beta Pruning mit Materialwertung
+- 🌐 **Online Multiplayer** via Cloudflare D1 mit Password-geschützten Lobbys
+- 📱 **Vollständig responsiv** — optimiert für Desktop & Mobile
+- ♟️ **Vollständiges Schach** — Rochade, En Passant, Bauernumwandlung, Schachmatt-Erkennung
+- 🚢 **Schiffe Versenken** mit visueller Schiff-Platzierung (inkl. Drag-Vorschau & R zum Drehen)
+- 🎲 **Ludo** mit Canvas-Rendering und animiertem 3D-Würfel
+
+---
+
+## 🗂️ Projektstruktur
+
+```
+GameVerse Arcade/
+├── index.html                  # 🏠 Hub-Menü
+├── hub.css                     # Hub Styles & Animationen
+├── hub.js                      # Partikel-System, 3D-Tilt
+│
+├── shared.css                  # 📦 Globales Design-System
+├── shared.js                   # Online-Logik, Lobby, Polling
+│
+├── tictactoe.html/css/js       # ❌ Tic-Tac-Toe
+├── super-tictactoe.html/css/js # 🌌 Super Tic-Tac-Toe
+├── connect4.html/css/js        # 🔴 Vier Gewinnt
+├── battleship.html/css/js      # 🚢 Schiffe Versenken
+├── chess.html/css/js           # ♟️ Schach
+├── ludo.html/css/js            # 🎲 Ludo
+│
+└── functions/
+    └── api/
+        └── [[route]].js        # ☁️ Cloudflare Pages Function (REST API)
+```
+
+---
+
+## 🚀 Deployment (Cloudflare Pages)
+
+### 1. Datenbank einrichten (Cloudflare D1)
+
+Führe die folgenden SQL-Befehle in der **Cloudflare D1 Console** aus:
+
+```sql
+-- Tabelle erstellen
+CREATE TABLE IF NOT EXISTS games (
+    id          TEXT     PRIMARY KEY,
+    game_type   TEXT     NOT NULL DEFAULT 'unknown',
+    name        TEXT     NOT NULL,
+    password    TEXT     DEFAULT '',
+    state       TEXT     NOT NULL DEFAULT 'waiting',
+    board_data  TEXT     DEFAULT '{}',
+    created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indizes für schnelle Lobby-Abfragen
+CREATE INDEX IF NOT EXISTS idx_games_state_type ON games (state, game_type);
+CREATE INDEX IF NOT EXISTS idx_games_updated    ON games (updated_at);
+```
+
+> [!NOTE]
+> Alte Spiele werden automatisch nach **30 Minuten** bereinigt — kein Cron-Job nötig.
+
+### 2. Pages-Projekt verbinden
+
+1. Repository auf GitHub pushen
+2. Cloudflare Pages → **Neues Projekt** → GitHub verbinden
+3. **Build-Einstellungen**:
+   - Build command: *(leer lassen)*
+   - Output directory: `/`
+4. **D1 Binding** unter *Einstellungen → Bindungen* hinzufügen:
+   - Variable: `DB`
+   - D1 Datenbank: *(deine erstellte DB)*
+
+### 3. Lokal entwickeln
+
+```bash
+# Wrangler installieren (falls nicht vorhanden)
+npm install -g wrangler
+
+# Lokalen Dev-Server starten (mit D1-Emulation)
+npx wrangler pages dev . --d1=DB=<deine-d1-id>
+```
+
+---
+
+## 🔌 API Referenz
+
+Die API läuft als Cloudflare Pages Function unter `/api/`.
+
+| Methode | Endpoint | Beschreibung |
+|---|---|---|
+| `GET` | `/api/lobbies?game=<type>` | Offene Lobbys abrufen |
+| `POST` | `/api/create` | Neues Spiel erstellen |
+| `POST` | `/api/join` | Spiel beitreten |
+| `GET` | `/api/state/:id` | Spielzustand abrufen |
+| `POST` | `/api/move/:id` | Zug synchronisieren |
+| `POST` | `/api/delete/:id` | Spiel löschen |
+
+**`game_type`-Werte:** `tictactoe` · `super-ttt` · `connect4` · `battleship` · `chess` · `ludo`
+
+---
+
+## 🏗️ Technologie
+
+| Bereich | Technologie |
+|---|---|
+| Frontend | Vanilla HTML, CSS, JavaScript (kein Framework) |
+| Fonts | Google Fonts — Orbitron, Poppins |
+| Backend | Cloudflare Pages Functions (Edge Workers) |
+| Datenbank | Cloudflare D1 (SQLite at the edge) |
+| Hosting | Cloudflare Pages (CDN, global) |
+
+---
+
+## 📄 Lizenz
+
+MIT © 2026 — Frei verwendbar, anpassbar und verteilbar.
