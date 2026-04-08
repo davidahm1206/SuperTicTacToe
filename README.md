@@ -15,14 +15,14 @@
 
 ## 🕹️ Spiele
 
-| # | Spiel | 🤖 Bot | 👥 Lokal | 🌐 Online |
-|---|---|:---:|:---:|:---:|
-| 1 | **Tic-Tac-Toe** — Klassisches 3×3 | Minimax (unschlagbar) | ✅ | ✅ |
-| 2 | **Super Tic-Tac-Toe** — 9 verschachtelte Boards | Strategischer Bot | ✅ | ✅ |
-| 3 | **Vier Gewinnt** — 7×6 Raster | Alpha-Beta Minimax | ✅ | ✅ |
-| 4 | **Schiffe Versenken** — 10×10 Flotten | Hunt/Target AI | ✅ | ✅ |
-| 5 | **Schach** — Vollständig mit allen Regeln | Minimax Depth-3 | ✅ | ✅ |
-| 6 | **Ludo** — Mensch Ärgere Dich Nicht | Strategischer Bot | ✅ | ✅ |
+| #   | Spiel                                           |        🤖 Bot         | 👥 Lokal | 🌐 Online |
+| --- | ----------------------------------------------- | :-------------------: | :------: | :-------: |
+| 1   | **Tic-Tac-Toe** — Klassisches 3×3               | Minimax (unschlagbar) |    ✅    |    ✅     |
+| 2   | **Super Tic-Tac-Toe** — 9 verschachtelte Boards |   Strategischer Bot   |    ✅    |    ✅     |
+| 3   | **Vier Gewinnt** — 7×6 Raster                   |  Alpha-Beta Minimax   |    ✅    |    ✅     |
+| 4   | **Schiffe Versenken** — 10×10 Flotten           |    Hunt/Target AI     |    ✅    |    ✅     |
+| 5   | **Schach** — Vollständig mit allen Regeln       |    Minimax Depth-3    |    ✅    |    ✅     |
+| 6   | **Ludo** — Mensch Ärgere Dich Nicht             |   Strategischer Bot   |    ✅    |    ✅     |
 
 ---
 
@@ -96,11 +96,11 @@ CREATE INDEX IF NOT EXISTS idx_games_updated    ON games (updated_at);
 1. Repository auf GitHub pushen
 2. Cloudflare Pages → **Neues Projekt** → GitHub verbinden
 3. **Build-Einstellungen**:
-   - Build command: *(leer lassen)*
+   - Build command: _(leer lassen)_
    - Output directory: `/`
-4. **D1 Binding** unter *Einstellungen → Bindungen* hinzufügen:
+4. **D1 Binding** unter _Einstellungen → Bindungen_ hinzufügen:
    - Variable: `DB`
-   - D1 Datenbank: *(deine erstellte DB)*
+   - D1 Datenbank: _(deine erstellte DB)_
 
 ### 3. Lokal entwickeln
 
@@ -118,14 +118,14 @@ npx wrangler pages dev . --d1=DB=<deine-d1-id>
 
 Die API läuft als Cloudflare Pages Function unter `/api/`.
 
-| Methode | Endpoint | Beschreibung |
-|---|---|---|
-| `GET` | `/api/lobbies?game=<type>` | Offene Lobbys abrufen |
-| `POST` | `/api/create` | Neues Spiel erstellen |
-| `POST` | `/api/join` | Spiel beitreten |
-| `GET` | `/api/state/:id` | Spielzustand abrufen |
-| `POST` | `/api/move/:id` | Zug synchronisieren |
-| `POST` | `/api/delete/:id` | Spiel löschen |
+| Methode | Endpoint                   | Beschreibung          |
+| ------- | -------------------------- | --------------------- |
+| `GET`   | `/api/lobbies?game=<type>` | Offene Lobbys abrufen |
+| `POST`  | `/api/create`              | Neues Spiel erstellen |
+| `POST`  | `/api/join`                | Spiel beitreten       |
+| `GET`   | `/api/state/:id`           | Spielzustand abrufen  |
+| `POST`  | `/api/move/:id`            | Zug synchronisieren   |
+| `POST`  | `/api/delete/:id`          | Spiel löschen         |
 
 **`game_type`-Werte:** `tictactoe` · `super-ttt` · `connect4` · `battleship` · `chess` · `ludo`
 
@@ -133,13 +133,13 @@ Die API läuft als Cloudflare Pages Function unter `/api/`.
 
 ## 🏗️ Technologie
 
-| Bereich | Technologie |
-|---|---|
-| Frontend | Vanilla HTML, CSS, JavaScript (kein Framework) |
-| Fonts | Google Fonts — Orbitron, Poppins |
-| Backend | Cloudflare Pages Functions (Edge Workers) |
-| Datenbank | Cloudflare D1 (SQLite at the edge) |
-| Hosting | Cloudflare Pages (CDN, global) |
+| Bereich   | Technologie                                    |
+| --------- | ---------------------------------------------- |
+| Frontend  | Vanilla HTML, CSS, JavaScript (kein Framework) |
+| Fonts     | Google Fonts — Orbitron, Poppins               |
+| Backend   | Cloudflare Pages Functions (Edge Workers)      |
+| Datenbank | Cloudflare D1 (SQLite at the edge)             |
+| Hosting   | Cloudflare Pages (CDN, global)                 |
 
 ---
 
